@@ -35,7 +35,7 @@ class Error:
 
 class IllegalCharError(Error):
 	def __init__(self, pos_start, pos_end, details):
-		super().__init__(pos_start, pos_end, 'Illegal Character', details)
+		super().__init__(pos_start, pos_end, 'Karakter ILEGAL BOSS', details)
 
 class ExpectedCharError(Error):
 	def __init__(self, pos_start, pos_end, details):
@@ -43,11 +43,11 @@ class ExpectedCharError(Error):
 
 class InvalidSyntaxError(Error):
 	def __init__(self, pos_start, pos_end, details=''):
-		super().__init__(pos_start, pos_end, 'Invalid Syntax', details)
+		super().__init__(pos_start, pos_end, 'SYNTAX SALAH BOSS', details)
 
 class RTError(Error):
 	def __init__(self, pos_start, pos_end, details, context):
-		super().__init__(pos_start, pos_end, 'Runtime Error', details)
+		super().__init__(pos_start, pos_end, 'ERRORNYA DISINI BOSS ', details)
 		self.context = context
 
 	def as_string(self):
@@ -66,7 +66,7 @@ class RTError(Error):
 			pos = ctx.parent_entry_pos
 			ctx = ctx.parent
 
-		return 'Traceback (most recent call last):\n' + result
+		return 'Menelusuri Kembali BOSS:\n' + result
 
 #######################################
 # POSITION
@@ -317,7 +317,7 @@ class Lexer:
 			return Token(TT_NE, pos_start=pos_start, pos_end=self.pos), None
 
 		self.advance()
-		return None, ExpectedCharError(pos_start, self.pos, "'=' (after '!')")
+		return None, ExpectedCharError(pos_start, self.pos, "'=' (sesudah '!')")
 	
 	def make_equals(self):
 		tok_type = TT_EQ
@@ -1410,7 +1410,7 @@ class Number(Value):
 			if other.value == 0:
 				return None, RTError(
 					other.pos_start, other.pos_end,
-					'Division by zero',
+					'Tidak Bisa Dibagi dengan 0',
 					self.context
 				)
 
@@ -1946,7 +1946,7 @@ class Interpreter:
 		if not value:
 			return res.failure(RTError(
 				node.pos_start, node.pos_end,
-				f"'{var_name}' is not defined",
+				f"'{var_name}' Tidak Ada Definisi ",
 				context
 			))
 
